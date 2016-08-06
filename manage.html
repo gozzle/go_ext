@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Go for Chrome</title>
+    <script src="jquery-3.1.0.min.js"></script>
+    <script src="util.js"></script>
+    <script src="manage.js"></script>
+  </head>
+  <body>
+    <h1 id="title" style="color: #5e9ca0;">Go For Chrome</h1>
+    <div id="message-bucket" style="color: #5e9ca0;"></div>
+    <p>Add a new short link below:</p>
+    <form id="form">
+      Shortcut: <input type="text" id="form-key"></input>
+      <span style="display:inline-block; width:20px">&nbsp;</span>
+      URL: <input type="text" id="form-url"></input>
+      <input type="button" value="Submit" id="form-submit"></input>
+    </form>
+    <form id="clearform">
+      Key: <input type="text" id="form-clear"></input>
+      <input type="button" value="Clear Mapping" id="clear-button"></input>
+  </body>
+</html>

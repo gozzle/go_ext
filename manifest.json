@@ -1,0 +1,15 @@
+{
+  "name": "GO for Chrome",
+  "description": "To use, type 'go' into the omnibox. To add a short link, click the browerAction button",
+  "manifest_version": 2,
+  "version": "1.0",
+  "omnibox": { "keyword" : "go" },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "browser_action": {
+    "default title": "GO"
+  },
+  "permissions": ["storage"]
+}
