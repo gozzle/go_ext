@@ -54,6 +54,26 @@ function GoExtException(message) {
 }
 
 /**
+  Fix URLs which are missing a protocol, by defaulting
+  to http. Will mess up if the url includes a port number, but no
+  protocol.
+
+  Args:
+    url  A url string to be normalised
+  Returns:
+    string  Normalised url string
+*/
+function normaliseURL(url) {
+
+  var parser = document.createElement('a');
+  parser.href = url;
+  if (parser.protocol == "chrome-extension:") {
+    parser.href = "http://" + url;
+  }
+  return parser.href;
+}
+
+/**
 * Add a new redirection mapping to storage.
 * Handles 1:1, and many:1, as well as multiple 1:1 mappings.
 * 
@@ -64,17 +84,7 @@ function GoExtException(message) {
 */
 function addMapping(keys, urls, callback) {
 
-  function normaliseURL(url) {
-    // fix URLs which are missing a protocol, by defaulting
-    // to http. Will mess up if the url includes a port number, but no
-    // protocol.
-    var parser = document.createElement('a');
-    parser.href = url;
-    if (parser.protocol == "chrome-extension:") {
-      parser.href = "http://" + url;
-    }
-    return parser.href;
-  }
+
 
   function addSingleMapping(key, url, callback) {
     var item = {};

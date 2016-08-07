@@ -41,6 +41,9 @@ function onFormSubmit() {
   var url = $("#form-url").val()
 
   // TODO(callumchalk): do some validations
+
+  // normalise url
+  url = bgPage.normaliseURL(url);
   bgPage.addMapping(key,url, function() {
     // TODO(callumchalk): show an error if something went wrong
 
