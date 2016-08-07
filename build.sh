@@ -14,7 +14,7 @@ rm -rf $zip_out
 mkdir $dist
 
 # put all src into the distro
-rsync -a --exclude=".*" src/* $dist
+rsync -a --safe-links --exclude=".*" src/* $dist
 
 if [[ `which bower` ]] 
 then
@@ -26,7 +26,7 @@ else
 fi
 
 # put bower deps into the distro
-mv bower_components $dist
+rsync -a bower_components $dist
 
 # zip up the dist directory for uploading to Chrome Webstore
-zip -r $zip_out $dist
+zip -qr $zip_out $dist
