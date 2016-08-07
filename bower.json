@@ -1,0 +1,22 @@
+{
+  "name": "go_ext",
+  "homepage": "https://github.com/g0zzle/go_ext",
+  "authors": [
+    "gozzle"
+  ],
+  "description": "Chrome extension for easy user specified browser shortcuts.",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "dist"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
