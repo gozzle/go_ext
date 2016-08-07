@@ -27,10 +27,7 @@ $('document').ready(function(){
     }
   });
 
-  $("#clear-button").click(function() {
-    var key = $("#form-clear").val();
-    bgPage.clearMapping(key);
-  });
+  generateMapTable($("#table-container"));
 
 });
 
@@ -47,8 +44,48 @@ function onFormSubmit() {
   bgPage.addMapping(key,url, function() {
     // TODO(callumchalk): show an error if something went wrong
 
+    // append new row to table
+    var table = $("#table-container table");
+    table.append(generateMapTableRow(key, url));
+
+    // show success message
     $('body').append("<h2>Success!</h2>");
-    $('body').append("Added " + key + ": " +
-      "<a href='" + url + "'>"+url+"</a> to your mappings");
+    $('body').append("Added {" + key + ": " +
+      "<a href='" + url + "'>"+url+"</a>} to your mappings");
+  });
+}
+
+function generateMapTableRow(key, url) {
+  var line = $("<tr>");
+  line.append("<td>"+key+"</td>");
+  line.append("<td><a href='"+url+"'>"+url+"</a></td>");
+  var delete_btn = $("<img class='delete-btn'' "+
+                 "src='img/ic_close_black_48dp_1x.png'>");
+  var btn_td = $("<td>");
+  btn_td.append(delete_btn);
+  line.append(btn_td);
+
+  delete_btn.click(function(e) {
+    var row = $(e.target).parents("tr");
+    var key = row.children("td").first().text();
+    bgPage.clearMapping(key);
+    row.remove();
+  });
+
+  return line;
+}
+
+/**
+ Create table showing all the current go links you have active
+*/
+function generateMapTable(element) {
+  bgPage.getMappings(function(map) {
+    table = $("<table border=1>");
+    table.append("<tr><th>Key</th><th>URL</th><th></th></tr>");
+    for (k in map) {
+      var line = generateMapTableRow(k, map[k]);
+      table.append(line);
+    }
+    element.append(table);
   });
 }

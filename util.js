@@ -13,6 +13,3 @@ function getQueryParams(qs) {
 
     return params;
 }
-
-//var query = getQueryParams(document.location.search);
-//alert(query.foo);

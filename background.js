@@ -148,6 +148,10 @@ function clearMapping(key) {
   }
 }
 
+function getMappings(callback) {
+  chrome.storage.sync.get(null, callback);
+}
+
 function openManagement() {
   chrome.tabs.create({
     url: "manage.html"
