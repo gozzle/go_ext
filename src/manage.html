@@ -1,21 +1,93 @@
-<html>
+<!DOCTYPE html>
+<html lang="en-gb">
   <head>
+    <!-- bootstrap recommended meta stuff -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Go for Chrome</title>
+
+    <!-- jquery -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
+
+    <!-- Bootstrap -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet", type="text/css"></link>
+    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
     <script src="util.js"></script>
     <script src="manage.js"></script>
     <link rel="stylesheet" href="style.css" type="text/css"></link>
   </head>
+
   <body>
-    <h1 id="title" style="color: #5e9ca0;">Go For Chrome</h1>
-    <div id="message-bucket" style="color: #5e9ca0;"></div>
-    <p>Add a new short link below:</p>
-    <form id="form">
-      Shortcut: <input type="text" id="form-key"></input>
-      <span style="display:inline-block; width:20px">&nbsp;</span>
-      URL: <input type="text" id="form-url"></input>
-      <input type="button" value="Submit" id="form-submit"></input>
-    </form>
-    <div id="table-container"></div>
+    <nav class="navbar navbar-inverse navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed"
+                  data-toggle="collapse" data-target="#navbar"
+                  aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Go For Chrome</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Go Links</a></li>
+          </ul>
+        </div> <!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="page-header">
+          <h1 id="title" style="color: #5e9ca0;">Go For Chrome</h1>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-10 col-sm-8 col-lg-6">
+          <div id="message-bucket" class="alert-container">
+            <!--<div class="alert alert-filler">&nbsp;</div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <p>Add a new short link below:</p>
+      <form id="form" role="form" class="form-inline">
+        <div class="form-group">
+          <label for="form-key">Shortcut:</label>
+          <input type="text" class="form-control" id="form-key"
+            placeholder="short key"></input>
+        </div>
+        <div class="form-group">
+          <label for="form-url">URL:</label>
+          <input type="text" class="form-control" id="form-url"
+            placeholder="http://www.example.com/"></input>
+        </div>
+        <button id="form-submit" type="button"
+          class="btn btn-primary disabled">Add</button>
+      </form>
+    </div>
+
+    <div class="container">
+      <h3>Existing Links</h3>
+      <div class="row">
+        <div class="col-xs-12">
+          <div id="table-container">
+            <table class="table table-bordered table-striped table-hover">
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
