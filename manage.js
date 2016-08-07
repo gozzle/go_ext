@@ -56,11 +56,13 @@ function onFormSubmit() {
 }
 
 function generateMapTableRow(key, url) {
+  var delete_img = "img/ic_close_black_48dp_1x.png";
+
   var line = $("<tr>");
   line.append("<td>"+key+"</td>");
   line.append("<td><a href='"+url+"'>"+url+"</a></td>");
   var delete_btn = $("<img class='delete-btn'' "+
-                 "src='img/ic_close_black_48dp_1x.png'>");
+                 "src='"+delete_img+"'>");
   var btn_td = $("<td>");
   btn_td.append(delete_btn);
   line.append(btn_td);
