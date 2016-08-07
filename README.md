@@ -9,10 +9,12 @@ harder.
 
 ## Installation
 
-Download from the Chrome Store and add to Chrome.
+Download from the Chrome Store [here](https://chrome.google.com/webstore/detail/go-for-chrome/iggghlfaegkacbkadnhimnjalepbfhji)
+and add to Chrome.
 
 ## Usage
 
 Simply type "go [shortcut]" in the omnibar and if the shortcut doesn't
 already exist, you'll be taken to a page where you can add it. From then
 on the same command will take you directly to the page.
+
