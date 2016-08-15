@@ -1,5 +1,7 @@
 /* manage.js */
 
+var KEYCODE_ENTER = 13;
+var KEYCODE_ESCAPE = 27;
 
 var bgPage = chrome.extension.getBackgroundPage();
 
@@ -21,18 +23,22 @@ $('document').ready(function(){
     $("#form-url").val(query.url);
   }
 
+  // wire up form submission
   $("#form-submit").click(function(event) {
     if (!$(this).hasClass("disabled")) {
       onFormSubmit(event);
     }
   });
 
+  // wire up 'enter' key to submit form
   $("#form").keypress(function(event) {
-    if(event.keyCode == 13){
+    if(event.keyCode == KEYCODE_ENTER){
         $("#form-submit").click();
     }
   });
 
+  // make form submission enabled/disabled depending
+  // if there's enough text in the boxes
   $("#form input").bind('input propertychange',
     function(event) {
       // activate/disable submit button
@@ -53,33 +59,55 @@ $('document').ready(function(){
 
   generateMapTable($("#table-container"));
 
+  // wire up escape key to dismiss all alerts
+  $(document).keyup(function(event) {
+    if (event.keyCode == KEYCODE_ESCAPE) {
+      $("#message-bucket .alert").alert("close");
+    }
+  });
+
 });
 
 /**
  Inserts an alert into the #message-bucket area on the page
- with the appropriate alert level. Clears the alert if called
- with no arguments.
+ with the appropriate alert level. Does nothing if called
+ with no message. Defaults to "info" level alerting.
 
  Args:
   message - The message text to display
   alert_level - The alert level to use out of
                 ["danger", "warning", "info", "success"]
+                Defaults to "info".
 */
 function setAlertMessage(message, alert_level) {
+
+  // do nothing if no args
+  if (!message) {
+    return;
+  }
+
+  //default alert level = info
+  if (!alert_level) {
+    alert_level = "info";
+  }
+
   var message_bucket = $("#message-bucket");
 
-  if (!message) {
-    // clear the bucket
-    message_bucket.html(filler);
-  } else {
-    var c = "alert alert-" + alert_level + " fade in";
-    var alert = $("<div class='" + c + "'>");
-    alert.html(message);
-    alert.append("<button class='close' data-dismiss='alert'"+
-      " aria-label='close'>&times;</button>");
+  // alert starts off hidden before sliding in above the others
+  var alert = $("<div class='alert fade in' style='display:none'>"+
+                "<button class='close' data-dismiss='alert' "+
+                "aria-label='close'>&times;</button></div>");
+  alert.append(message);
+  alert.addClass("alert-" + alert_level);
+  message_bucket.prepend(alert);
 
-    message_bucket.append(alert);
-  }
+  // show the alert with a slide down
+  alert.slideDown(100, function() {
+    // wait for 2s then dismiss
+    setTimeout(function(){
+      alert.alert('close');
+    }, 2000);
+  });
 }
 
 /**
@@ -124,6 +152,14 @@ function onFormSubmit() {
   });
 }
 
+/**
+ Create single row of the go link table, with the given key
+ and url.
+
+ Args:
+  key - go shortcut
+  url - target of go shortcut.
+*/
 function generateMapTableRow(key, url) {
   var line = $("<tr key='"+key+"'>");
   line.append("<td>"+key+"</td>");
@@ -151,6 +187,9 @@ function generateMapTableRow(key, url) {
 
 /**
  Create table showing all the current go links you have active
+
+ Args:
+  element - the DOM element into which to insert the table
 */
 function generateMapTable(element) {
   bgPage.getMappings(function(map) {
